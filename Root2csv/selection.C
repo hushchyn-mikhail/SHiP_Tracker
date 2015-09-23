@@ -30,7 +30,7 @@ void selection::Loop()
 
         for(int k = 0; k<kMaxcbmroot_strawtubes_strawtubesPoint; k++){
                 if (strawtubesPoint_fDetectorID[k]!=0)
-			outFile1<<jentry<<"\t"<<k<<"\t"<<strawtubesPoint_fUniqueID[k]<<"\t"<<strawtubesPoint_fBits[k]<<"\t"<<"\t"<<strawtubesPoint_fTrackID[k]<<"\t"<<strawtubesPoint_fEventId[k]<<"\t"<<strawtubesPoint_fPx[k]<<"\t"<<strawtubesPoint_fPy[k]<<"\t"<<strawtubesPoint_fPz[k]<<"\t"<<strawtubesPoint_fTime[k]<<"\t"<<strawtubesPoint_fLength[k]<<"\t"<<strawtubesPoint_fELoss[k]<<"\t"<<strawtubesPoint_fDetectorID[k]<<"\t"<<strawtubesPoint_fX[k]<<"\t"<<strawtubesPoint_fY[k]<<"\t"<<strawtubesPoint_fZ[k]<<"\t"<<strawtubesPoint_fPdgCode[k]<<"\t"<<strawtubesPoint_fdist2Wire[k]<<endl;
+			outFile1<<jentry<<"\t"<<k<<"\t"<<strawtubesPoint_fUniqueID[k]<<"\t"<<strawtubesPoint_fBits[k]<<"\t"<<strawtubesPoint_fTrackID[k]<<"\t"<<strawtubesPoint_fEventId[k]<<"\t"<<strawtubesPoint_fPx[k]<<"\t"<<strawtubesPoint_fPy[k]<<"\t"<<strawtubesPoint_fPz[k]<<"\t"<<strawtubesPoint_fTime[k]<<"\t"<<strawtubesPoint_fLength[k]<<"\t"<<strawtubesPoint_fELoss[k]<<"\t"<<strawtubesPoint_fDetectorID[k]<<"\t"<<strawtubesPoint_fX[k]<<"\t"<<strawtubesPoint_fY[k]<<"\t"<<strawtubesPoint_fZ[k]<<"\t"<<strawtubesPoint_fPdgCode[k]<<"\t"<<strawtubesPoint_fdist2Wire[k]<<endl;
         }
 
 
