@@ -1,0 +1,30 @@
+{\rtf1\ansi\ansicpg1251\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs24 \cf0 1. Open a terminal and go to the directory with ship.10.0.Pythia8-TGeant4.root file. Type the following commands. These commands generate selection.C and selection.h files.\
+\
+> root -l ship.10.0.Pythia8-TGeant4.root \
+root [0] \
+Attaching file ship.10.0.Pythia8-TGeant4.root as _file0...\
+root [1] .ls\
+TFile**		ship.10.0.Pythia8-TGeant4.root\
+ TFile*		ship.10.0.Pythia8-TGeant4.root\
+  KEY: TFolder	cbmroot;1	Main Folder\
+  KEY: TList	BranchList;1	Doubly linked list\
+  KEY: FairFileHeader	FileHeader;1\
+  KEY: TProcessID	ProcessID0;1	3f6886bc-b78b-11e4-9717-5f83b9bcbeef\
+  KEY: TTree	cbmsim;4	/cbmroot\
+  KEY: TTree	cbmsim;3	/cbmroot\
+root [2] cbmsim->MakeClass(\'abselection\'bb) \
+Info in <TTreePlayer::MakeClass>: Files: selection.h and selection.C generated from TTree: cbmsim\
+(Int_t)0\
+\
+2. Change the selection.C file according you want to see in .csv file.\
+3. Create the run.C file in the same directory.\
+4. Type in the terminal the following command.\
+> root -l run.C\
+\
+After that strawtubes.csv file will generated in new directory \'91data\'92. }
