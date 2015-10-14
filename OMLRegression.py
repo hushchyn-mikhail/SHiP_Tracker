@@ -78,21 +78,13 @@ class EMOMLRegression(object):
         self.regressors = []
         self.Rs = []
 
-        #1-E step
-        lr = LinearRegression(fit_intercept=True)
-        sample = [np.random.choice(X_new.shape[0], X_new.shape[0] - self.n_samp)]
-        lr.fit(X_new[sample],Y_new[sample])
-        self.regressors.append(lr)
-        self.Rs.append(R_new)
+        sign = np.ones(R_new.shape)
 
-        #1-M step
-        sign = 1.*(Y_new - lr.predict(X_new) > 0) - 1.*(Y_new - lr.predict(X_new) <= 0)
-
-        #other steps
-        for step in range(0, self.n_steps-1):
+        #EM steps
+        for step in range(0, self.n_steps):
             #E step
             omlr = OMLRegression()
-            omlr.fit(X_new,Y_new,R_new,sign)
+            omlr.fit(X_new,Y_new,R_new,sign, self.n_samp)
             self.regressors.append(omlr)
             self.Rs.append(R_new*sign)
             #M step
@@ -121,14 +113,14 @@ class EMOMLRegression(object):
         best_regressor = self._get_best_regressor()
         return best_regressor.predict(X_new)
 
-    def _get_score(self, X, Y):
+    def _get_score(self, R_true, R_predict):
         """
         Get quality of the regressor.
         :param numpy.array X: The first coordinate of the points.
         :param numpy.array Y: The second coordinate of the points.
         :return: mean of (error)^2
         """
-        return ((X - Y)**2).mean()
+        return ((R_true - R_predict)**2).mean()
 
     def get_learning_curve(self, X, Y, R):
         """
@@ -140,14 +132,15 @@ class EMOMLRegression(object):
         """
         X_new = X.reshape((X.shape[0], 1))
         Y_new = Y.reshape((Y.shape[0], 1))
-        R_new = -R.reshape((R.shape[0], 1))
+        R_new = R.reshape((R.shape[0], 1))
 
         scores = []
 
         for i in range(0, self.n_steps):
-            Y_predict = self.regressors[i].predict(X_new)
-            R_predict = Y_new - Y_predict
-            score = self._get_score(R_predict, R_new)
+            b  = self.regressors[i].b
+            k = self.regressors[i].k
+            R_predict = (Y_new - k*X_new - b)/float(np.sqrt(1+k**2))
+            score = self._get_score(R_new, R_predict)
             scores.append(score)
         return np.array(scores)
 
@@ -162,8 +155,9 @@ class EMOMLRegression(object):
         scores = []
 
         for i in range(0, self.n_steps):
-            Y_predict = self.regressors[i].predict(self.X_new)
-            R_predict = self.Y_new - Y_predict
-            score = self._get_score(R_predict, self.Rs[i])
+            b  = self.regressors[i].b
+            k = self.regressors[i].k
+            R_predict = (self.Y_new - k*self.X_new - b)/float(np.sqrt(1+k**2))
+            score = self._get_score(self.Rs[i], R_predict)
             scores.append(score)
         return np.array(scores)
